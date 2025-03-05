@@ -15,7 +15,7 @@ return maior;
 }
 
 int main(){
-	int i, maior, vet[max]; /*variáveis locais*/
+	int i, _maior, vet[max]; /*variáveis locais*/
 	
 	for(i=0; i<max; i++){
 		printf("Digite o número	%d de %d:\n",i+1,max);
