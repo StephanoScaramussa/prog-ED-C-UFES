@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define max_char 100
-
 void Cubo(float F){
     float cubo=1;
     for(int i=0;i<3;i++){
