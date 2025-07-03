@@ -1,0 +1,4 @@
+Ao rodar o executável com o bash ou linux/unix cmd, os printf com código ANSI(coloridos),
+funcionarão perfeitamente, no cmd do windows por outro lado, provavelmente
+serão retornados os códigos juntamente com o texto. No entanto, isso em nada afeta
+a compilação.
