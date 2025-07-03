@@ -133,9 +133,9 @@ void mediaNota(NoLista**l){ //5
             media = soma/pos;
             printf("\n\033[0;35mMedia: %.2f\033[0m\n",media);
         }
-        else{
+    }
+    else{
             printf("\n\033[0;33mNao ha nenhum registro!\033[0m\n");    
-        }
     }
 }
 
@@ -176,9 +176,9 @@ void mostrarHumorMaisFreq(NoLista**l){ //6
             }
             printf("\033[0m\n");
         }
-        else{
-            printf("\n\033[0;33mNao ha nenhum registro!\033[0m\n");
-        }
+    }
+    else{
+        printf("\n\033[0;33mNao ha nenhum registro!\033[0m\n");
     }
 }
 
