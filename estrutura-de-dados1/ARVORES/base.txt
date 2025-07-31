@@ -1,0 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+int main() {
+	FILE *arq = fopen("arq","r");
+	FILE *arq_saida = fopen("arq_min","w");
+	
+}
