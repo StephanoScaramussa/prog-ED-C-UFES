@@ -41,6 +41,21 @@ Arvore* liberarArv(Arvore*arv){
 		liberarArv(arv->dir);
 		free(arv);
 	}
+	return NULL;
+}
+
+int pertence(Arvore*arv, char c){
+	if(estaVazia(arv)){
+		return 0;
+	}
+	else{
+		if(arv->info==c){
+			return 1;
+		}
+		else{
+			return(pertence(arv->esq,c))||(pertence(arv->dir,c));
+		}
+	}
 }
 
 int main() {
@@ -53,5 +68,15 @@ int main() {
 	Arvore*c = criarArvore('c',e,f);
 	Arvore*a = criarArvore('a',b,c);
 	imprimeArvore(a);
-	a->dir = liberar(arv->dir);
+		char ce;
+	printf("Digite a letra: ");
+	scanf("%c",&ce);
+	if(pertence(a,ce)==1){
+		printf("Encontrada");
+	}
+	else{
+		printf("Nao encontrada");
+	}
+	a->dir = liberarArv(a->dir);
+		imprimeArvore(a);
 }
