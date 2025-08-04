@@ -58,9 +58,18 @@ int pertence(Arvore*arv, char c){
 	}
 }
 
+int qtdNos(Arvore*arv){
+	if(!estaVazia(arv)){
+		return 1+qtdNos(arv->esq)+qtdNos(arv->dir);
+	}
+	else 
+		return 0;
+}
+
 int main() {
 	//Arvore* a = criarArvore('X',criarArvoreVazia(),criarArvoreVazia());
 	//criar estrutura para <a <b <> <d <> <>>> <c <e <> <>> <f <> <>>>>
+	char ce;
 	Arvore*d = criarArvore('d',criarArvoreVazia(),criarArvoreVazia());
 	Arvore*b = criarArvore('b',criarArvoreVazia(),d);
 	Arvore*e = criarArvore('e',criarArvoreVazia(),criarArvoreVazia());
@@ -68,15 +77,19 @@ int main() {
 	Arvore*c = criarArvore('c',e,f);
 	Arvore*a = criarArvore('a',b,c);
 	imprimeArvore(a);
-		char ce;
-	printf("Digite a letra: ");
+	printf("\nDigite a letra: ");
+	fflush(stdout);
 	scanf("%c",&ce);
 	if(pertence(a,ce)==1){
-		printf("Encontrada");
+		printf("Encontrada\n");
 	}
 	else{
-		printf("Nao encontrada");
+		printf("Nao encontrada\n");
 	}
+	printf("%d\n",qtdNos(a));
 	a->dir = liberarArv(a->dir);
 		imprimeArvore(a);
+	printf("\n%d",qtdNos(a));
 }
+
+//nivel da arvore binaria completa, arvore degenerada, qtd de nos, etc...
