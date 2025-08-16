@@ -3,6 +3,7 @@
 int main(){
     int escolha;
     NoLista * lista = criarLista();
+    leRegistro(&lista);
     do{
         printf("\n----------------------------------\n");
         printf("\033[0;35m              MENU                \033[0m\n");
@@ -21,7 +22,9 @@ int main(){
 
         switch(escolha){
             case 1:
-                inserirNoFinalLista(&lista,criarRegistro());
+                RegistroDeHumor *humor = criarRegistro();
+                inserirNoFinalLista(&lista,*humor);
+                liberarRegistro(humor);
                 break;
             case 2:
                 removerPorId(&lista);
@@ -46,6 +49,8 @@ int main(){
                 break;
             case 8:
                 printf("\n\033[0;34mAte mais!\033[0m\n");
+                salvaRegistro(&lista);
+                liberarLista(&lista);
                 break;
             default:
                 printf("\n\033[0;34mDigite novamente.\033[0m\n");
