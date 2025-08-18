@@ -1,0 +1,3 @@
+0;16 08 2025;3;Estou cansado;6
+1;7/08/2025;4;Estou motivado;8
+2;18/08/2025;6;Dia comum;6

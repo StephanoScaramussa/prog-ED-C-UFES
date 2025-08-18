@@ -9,25 +9,25 @@ int estaVazia(NoLista**l){
     return *l==NULL;
 }
 
-void inserirNoFinalLista(NoLista**l, RegistroDeHumor*v){ //1
-    NoLista*novo = (NoLista*)malloc(sizeof(NoLista));
+void inserirNoFinalLista(NoLista**l, RegistroDeHumor v){ //1
+    NoLista*novo;
+    novo = (NoLista*)malloc(sizeof(NoLista));
     if(novo!=NULL){
         novo->info = v;
+        novo->prox = NULL;
         if(!estaVazia(l)){
             NoLista*ult;
             for(ult = *l; ult->prox!=NULL; ult=ult->prox);
             ult->prox = novo;
-            novo->prox = NULL;
             novo->ant = ult;
         }
         else{
             *l = novo;
-            novo->prox = NULL;
             novo->ant = NULL;
         }
     }
     else{
-        printf("\n\033[0;33mErro ao alocar memoria.\033[0m\n");
+        printf("\n\033[0;33mErro ao alocar memoria!\033[0m\n");
     }
 }
 
@@ -37,10 +37,10 @@ void removerPorId(NoLista**l){ //2
         printf("\033[0;31mDigite o ID do registro a ser excluido: \033[0m");
         scanf("%d",&_id);
         NoLista*p;
-        for(p=*l;p!=NULL && p->info->id!=_id;p=p->prox);
+        for(p=*l;p!=NULL && p->info.id!=_id;p=p->prox);
         if(p!=NULL){
             if(p->ant==NULL&&p->prox==NULL){ //primeiro e único
-                liberarRegistro(p->info);
+                //liberarRegistro(p->info);
                 free(p);
                 p=NULL;
                 *l=p;
@@ -49,20 +49,20 @@ void removerPorId(NoLista**l){ //2
             else if(p->ant==NULL){ //primeiro mas não o único
                 *l=p->prox;
                 p->prox->ant=NULL;
-                liberarRegistro(p->info);
+                //liberarRegistro(p->info);
                 free(p);
                 printf("\n\033[0;32mRegistro removido com sucesso!\033[0m\n");
             }
             else if(p->prox==NULL){ //último mas não o único
                 p->ant->prox = NULL;
-                liberarRegistro(p->info);
+                //liberarRegistro(p->info);
                 free(p);
                 printf("\n\033[0;32mRegistro removido com sucesso!\033[0m\n");
             }
             else{ //nem primeiro nem ultimo
                 p->ant->prox = p->prox;
                 p->prox->ant = p->ant;
-                liberarRegistro(p->info);
+                //liberarRegistro(p->info);
                 free(p);
                 printf("\n\033[0;32mRegistro removido com sucesso!\033[0m\n");
             }
@@ -76,18 +76,30 @@ void removerPorId(NoLista**l){ //2
     }
 }
 
+void imprimirRegistroSimples(NoLista*p,int n){
+    char* nomesHumor[] = {
+        "FELIZ", "TRISTE", "ANSIOSO", "CANSADO", "MOTIVADO", "ESTRESSADO", "NEUTRO"
+    };
+    printf("\n\033[0;33mRegistro %d:\033[0m\n",n);
+    printf("\nID: %d", p->info.id);
+    printf("\nDATA: %s", p->info.data);
+    printf("\nHUMOR: %s", nomesHumor[p->info.humor]);
+    printf("\nMOTIVO: %s", p->info.motivo);
+    printf("\nNOTA: %d\n", p->info.notaDoDia);
+}
+
 void buscarPorHumor(NoLista**l, int n){ //3
     if(!estaVazia(l)){
         int _h;
         printf("\n\033[0;34m0-Feliz\n1-Triste\n2-Ansioso\n3-Cansado\n4-Motivado\n5-Estressado\n6-Neutro\nDigite o humor a ser buscado: \033[0m");
         scanf("%d",&_h);
         NoLista*p;
-        for(p=*l;p!=NULL&&p->info->humor!=_h;p=p->prox);
+        for(p=*l;p!=NULL&&p->info.humor!=_h;p=p->prox);
         if(p!=NULL){
             printf("\n\033[0;35mRegistros existentes: \033[0m\n");
             for(p=*l;p!=NULL;p=p->prox){
-                if(p->info->humor==_h){
-                    imprimirRegistro(p->info,n);
+                if(p->info.humor==_h){
+                    imprimirRegistroSimples(p,n);
                     n++;
                 }
             }
@@ -107,7 +119,7 @@ void imprimirTodosRegistros(NoLista**l, int n){ //4
         printf("\n\033[0;35mRegistros existentes: \033[0m\n");
         NoLista* p;
         for(p=*l;p!=NULL;p=p->prox){
-            imprimirRegistro(p->info,n);
+            imprimirRegistroSimples(p,n);
             n++;
         }
         printf("\n\033[0;35mFim dos registros\033[0m\n\n");
@@ -126,7 +138,7 @@ void mediaNota(NoLista**l){ //5
         scanf("%d",&d);
         for(p=*l;p->prox!=NULL;p=p->prox);
         for(;p!=NULL&&_d<d;p=p->ant,_d++){
-            soma+=p->info->notaDoDia;
+            soma+=p->info.notaDoDia;
             pos++;
         }
         if(pos>0){
@@ -147,7 +159,7 @@ void mostrarHumorMaisFreq(NoLista**l){ //6
         scanf("%d",&d);
         for(p=*l;p->prox!=NULL;p=p->prox);
         for(;p!=NULL&&_d<d;p=p->ant,_d++){
-            switch (p->info->humor){
+            switch (p->info.humor){
                 case 0: _fel++; break;
                 case 1: _tri++; break;
                 case 2: _ans++; break;
@@ -191,11 +203,11 @@ void imprimirMotivoHumor(NoLista**l,int n){ //7
         char* nomesHumor[] = {
         "FELIZ", "TRISTE", "ANSIOSO", "CANSADO", "MOTIVADO", "ESTRESSADO", "NEUTRO"
         };
-        for(p=*l;p!=NULL&&p->info->humor!=_h;p=p->prox);
+        for(p=*l;p!=NULL&&p->info.humor!=_h;p=p->prox);
         if(p!=NULL){
             printf("\n\033[0;35mMotivos de estar %s: \033[0m\n",nomesHumor[_h]);
             for(p=*l;p!=NULL;p=p->prox){
-                if(p->info->humor==_h){
+                if(p->info.humor==_h){
                     imprimirMotivo(p->info,n);
                     n++;
                 }
@@ -209,4 +221,55 @@ void imprimirMotivoHumor(NoLista**l,int n){ //7
     else{
         printf("\n\033[0;33mLista vazia!\033[0m\n");   
     }
+}
+
+void liberarLista(NoLista**l){
+    NoLista*p = *l;
+    while(p != NULL){
+        NoLista *temp = p->prox;
+        free(p);
+        p = temp;
+    }
+    *l=NULL;
+}
+
+void salvaRegistro(NoLista**l){
+    FILE* registrosWrite;
+    registrosWrite = fopen("registros.txt","w");
+    if(!registrosWrite){
+        printf("\n\033[0;33mErro ao abrir o arquivo!\033[0m\n");
+        return;
+    }
+    else if(!estaVazia(l)){
+        NoLista*p;
+        for(p=*l;p!=NULL;p=p->prox){
+            fprintf(registrosWrite, "%d;%s;%d;%s;%d\n", p->info.id, p->info.data, p->info.humor, p->info.motivo, p->info.notaDoDia);
+        }
+    }
+    fclose(registrosWrite);
+}
+
+void leRegistro(NoLista**l){
+    FILE* registrosRead;
+    registrosRead = fopen("registros.txt","r");
+    if(!registrosRead){
+        printf("\n\033[0;33mErro ao abrir o arquivo!\033[0m\n");
+        return;
+    }
+    char linha[256];
+    int id = -1;
+
+    while (fgets(linha, sizeof(linha), registrosRead)) {
+        RegistroDeHumor reg_lido;
+        char data[Mdata];
+        char motivo[Mmotivo];
+        sscanf(linha, "%d;%11[^;];%d;%101[^;];%d", &reg_lido.id, data, (int*)&reg_lido.humor, motivo, &reg_lido.notaDoDia);
+        strncpy(reg_lido.data, data, Mdata);
+        strncpy(reg_lido.motivo, motivo, Mmotivo);
+        if (reg_lido.id > id) id = reg_lido.id;
+
+        inserirNoFinalLista(l, reg_lido);
+    }
+    fclose(registrosRead);
+    id_global = id + 1;
 }
