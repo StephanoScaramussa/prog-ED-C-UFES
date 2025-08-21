@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct nolista{
+typedef struct nofila{
 	float info;
-	struct nolista* prox;
-}NoLista;
+	struct nofila* prox;
+}NoFila;
 
 typedef struct fila{
-	NoLista* ini;
-	NoLista* fim;
+	NoFila* ini;
+	NoFila* fim;
 }Fila;
 
 Fila*criarFila(){
@@ -22,7 +22,7 @@ int estaVazia(Fila*f){
 }
 
 void inserir(Fila*f, float v){
-	NoLista* p = (NoLista*) malloc(sizeof(NoLista));
+	NoFila* p = (NoFila*) malloc(sizeof(NoFila));
 	p->info = v;
 	p->prox = NULL;
 	if(p!=NULL){
@@ -42,7 +42,7 @@ void inserir(Fila*f, float v){
 float maior(Fila*f){
 	float maior_elemento=0;
 	if(!estaVazia(f)){
-		for(NoLista*p=f->ini;p!=NULL;p=p->prox){
+		for(NoFila*p=f->ini;p!=NULL;p=p->prox){
 			if(p->info>maior_elemento){
 				maior_elemento=p->info;
 			}
@@ -54,14 +54,84 @@ float maior(Fila*f){
 	}
 }
 
+float removeUm(Fila* f){
+	if(!estaVazia(f)){
+		NoFila*p = f->ini;
+		float v = p->info;
+		f->ini = p->prox;
+		if(f->ini==NULL){
+			f->fim=NULL;
+		}
+		free(p);
+		return v;
+	}
+	else{
+		printf("Fila esta vazia!\n");
+	}
+}
+
+void umcombinaFilas(Fila* f_res, Fila* f1, Fila* f2){
+	while(!estaVazia(f1) && !estaVazia(f2)){
+		inserir(f_res, removeUm(f1));
+		inserir(f_res, removeUm(f2));
+	}
+	while(!estaVazia(f1)){
+		inserir(f_res,removeUm(f1));
+	}
+	while(!estaVazia(f2)){
+		inserir(f_res,removeUm(f2));
+	}
+	if(estaVazia(f_res)){
+		printf("Todas as filas estao vazias!");
+	}
+}
+
+void doiscombinaFilas(Fila*f_res, Fila*f1, Fila*f2){
+	if(!estaVazia(f1) && !estaVazia(f2)){
+		inserir(f_res, removeUm(f1));
+		inserir(f_res, removeUm(f2));
+		doiscombinaFilas(f_res,f1,f2);
+	}
+	else if(!estaVazia(f1)){
+		inserir(f_res,removeUm(f1));
+		doiscombinaFilas(f_res,f1,f2);
+	}
+	else if(!estaVazia(f2)){
+		inserir(f_res,removeUm(f2));
+		doiscombinaFilas(f_res,f1,f2);
+	}
+	else if(estaVazia(f_res)){
+		printf("Todas as filas estao vazias!");
+	}
+	return;
+}
+
+void imprimir(Fila*f){
+	if(!estaVazia(f)){
+		for(NoFila*p=f->ini;p!=NULL;p=p->prox){
+			printf("%.2f\n",p->info);
+		}
+	}
+	else{
+		printf("Fila esta vazia!\n");
+	}
+}
+
 int main(){
 	Fila*fila = criarFila();
+	Fila*f1 = criarFila();
+	Fila*f2 = criarFila();
+	Fila*f3 = criarFila();
 	inserir(fila,2.5);
 	inserir(fila,3.5);
 	inserir(fila,4.5);
-	inserir(fila,5.5);
-	inserir(fila,10.5);
-	inserir(fila,6.5);
-	float n = maior(fila);
-	printf("%.2f",n);
+	inserir(f1,5.5);
+	inserir(f1,3.5);
+	inserir(f1,7.5);
+	inserir(f1,10.5);
+	inserir(f2,6.5);
+	//umcombinaFilas(f3,f1,f2);
+	doiscombinaFilas(f3,f1,f2);
+	imprimir(f3);
+	//printf("%.2f", maior(fila));
 }
