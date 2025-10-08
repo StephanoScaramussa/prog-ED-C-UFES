@@ -1,37 +1,36 @@
-# Imagem base: Ubuntu 22.04
-FROM ubuntu:22.04
+{
+	"name": "Ambiente C",
 
-# Argumento para o nome de utilizador não-root
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+	// Configurações para construir a imagem Docker
+	"build": {
+		// Aponta para o Dockerfile na mesma pasta
+		"dockerfile": "Dockerfile",
+		// Passa o nome de utilizador para o Dockerfile
+		"args": {
+			"USERNAME": "vscode"
+		}
+	},
 
-# Evita prompts interativos durante a instalação de pacotes
-ENV DEBIAN_FRONTEND=noninteractive
+	// Personalizações para o ambiente do VS Code
+	"customizations": {
+		"vscode": {
+			// Lista de extensões a serem instaladas no contêiner
+			"extensions": [
+				"eamodio.gitlens",
+				"pkief.material-icon-theme",
+				"akamud.vscode-theme-onedark-pro"
+			],
+			// Configurações do VS Code dentro do contêiner
+			"settings": {
+				"terminal.integrated.shell.linux": "/bin/bash"
+			}
+		}
+	},
 
-# Instala as dependências essenciais para desenvolvimento em C e outras ferramentas úteis
-RUN apt-get update && apt-get install -y \
-    sudo \
-    build-essential \
-    gdb \
-    valgrind \
-    git \
-    curl \
-    vim \
-    && rm -rf /var/lib/apt/lists/*
+	// Define a pasta de trabalho padrão dentro do contêiner
+	"workspaceFolder": "/home/vscode/workspace",
 
-# Cria um utilizador não-root para evitar correr como root
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
-
-# Muda para o utilizador não-root
-USER $USERNAME
-
-# Define o diretório de trabalho
-WORKDIR /home/$USERNAME/workspace
-
-# Comando para manter o contêiner a funcionar
-CMD [ "sleep", "infinity" ]
+	// Executa os comandos e o terminal como o utilizador 'vscode'
+	"remoteUser": "vscode"
+}
 
