@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define LINHA 10
+
 // int buscaBin(int vetor, int chave){
 // 	int dir = MAX;
 // 	int esq = 0;
@@ -51,6 +51,8 @@
 //     *tamanhoVetor = tamanho;
 //     return vetor;
 // }
+
+int* 
 
 int main(){
 	clock_t start, end;
