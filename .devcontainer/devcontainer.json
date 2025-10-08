@@ -1,34 +1,17 @@
 {
-	"name": "Ambiente C",
-	// Configurações para construir a imagem Docker
+	"name": "C Development Environment",
 	"build": {
-		// Define o "contexto" da construção como a pasta raiz do repositório (um nível acima)
-		"context": "..",
-		// Define o caminho para o Dockerfile a partir do contexto
-		"dockerfile": "Dockerfile",
-		// Passa o nome de utilizador para o Dockerfile
-		"args": {
-			"USERNAME": "vscode"
-		}
+		"dockerfile": "Dockerfile"
 	},
-	// Personalizações para o ambiente do VS Code
 	"customizations": {
 		"vscode": {
-			// Lista de extensões a serem instaladas no contêiner
 			"extensions": [
 				"eamodio.gitlens",
 				"pkief.material-icon-theme",
 				"akamud.vscode-theme-onedark-pro"
-			],
-			// Configurações do VS Code dentro do contêiner
-			"settings": {
-				"terminal.integrated.shell.linux": "/bin/bash"
-			}
+			]
 		}
 	},
-	// Define a pasta de trabalho padrão dentro do contêiner
-	"workspaceFolder": "/home/vscode/workspace",
-	// Executa os comandos e o terminal como o utilizador 'vscode'
+	// Define o utilizador com que o VS Code irá correr dentro do contêiner
 	"remoteUser": "vscode"
 }
-
