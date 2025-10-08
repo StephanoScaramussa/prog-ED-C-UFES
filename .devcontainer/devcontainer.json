@@ -2,7 +2,7 @@
     "name": "C Development Container",
     // Configura o VS Code para usar o Dockerfile que está na raiz do projeto.
     "build": {
-        "dockerfile": "../Dockerfile"
+        "dockerfile": "Dockerfile"
     },
     // Define o usuário padrão dentro do container.
     "remoteUser": "vscode",
