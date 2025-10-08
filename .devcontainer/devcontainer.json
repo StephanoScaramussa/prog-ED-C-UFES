@@ -1,22 +1,32 @@
 {
-    "name": "C Development Container",
-    // Configura o VS Code para usar o Dockerfile que está na raiz do projeto.
-    "build": {
-        "dockerfile": "../Dockerfile"
-    },
-    // Define o usuário padrão dentro do container.
-    "remoteUser": "vscode",
-    // Lista de extensões do VS Code para instalar automaticamente no container.
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "eamodio.gitlens",
-                "pkief.material-icon-theme",
-                "akamud.vscode-theme-onedark-pro"
-            ]
-        }
-    },
-    // Mapeia a pasta do projeto para o diretório de trabalho dentro do container.
-    "workspaceFolder": "/home/vscode/workspace",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/workspace,type=bind,consistency=cached"
+	"name": "Ambiente C (Novo)",
+
+	// Informa ao VS Code para usar o Dockerfile que está nesta mesma pasta.
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	// Mapeia a pasta do seu projeto para dentro do contêiner.
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/workspace,type=bind",
+	"workspaceFolder": "/home/vscode/workspace",
+
+	// Define as configurações a serem aplicadas dentro do VS Code no contêiner.
+	"customizations": {
+		"vscode": {
+			// Extensões a serem instaladas no contêiner.
+			"extensions": [
+				"eamodio.gitlens",
+				"pkief.material-icon-theme",
+				"akamud.vscode-theme-onedark-pro"
+			],
+			// Configurações do editor.
+			"settings": {
+				"terminal.integrated.shell.linux": "/bin/bash"
+			}
+		}
+	},
+
+	// Informa ao VS Code para correr os comandos como o utilizador 'vscode'.
+	"remoteUser": "vscode"
 }
+
