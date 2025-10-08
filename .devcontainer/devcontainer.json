@@ -1,16 +1,16 @@
 {
 	"name": "Ambiente C",
-
 	// Configurações para construir a imagem Docker
 	"build": {
-		// Aponta para o Dockerfile na mesma pasta
-		"dockerfile": "Dockerfile",
+		// Define o "contexto" da construção como a pasta raiz do repositório (um nível acima)
+		"context": "..",
+		// Define o caminho para o Dockerfile a partir do contexto
+		"dockerfile": ".devcontainer/Dockerfile",
 		// Passa o nome de utilizador para o Dockerfile
 		"args": {
 			"USERNAME": "vscode"
 		}
 	},
-
 	// Personalizações para o ambiente do VS Code
 	"customizations": {
 		"vscode": {
@@ -26,10 +26,8 @@
 			}
 		}
 	},
-
 	// Define a pasta de trabalho padrão dentro do contêiner
 	"workspaceFolder": "/home/vscode/workspace",
-
 	// Executa os comandos e o terminal como o utilizador 'vscode'
 	"remoteUser": "vscode"
 }
