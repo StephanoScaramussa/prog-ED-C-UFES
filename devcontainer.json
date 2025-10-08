@@ -5,7 +5,7 @@
 		// Define o "contexto" da construção como a pasta raiz do repositório (um nível acima)
 		"context": "..",
 		// Define o caminho para o Dockerfile a partir do contexto
-		"dockerfile": ".devcontainer/Dockerfile",
+		"dockerfile": "Dockerfile",
 		// Passa o nome de utilizador para o Dockerfile
 		"args": {
 			"USERNAME": "vscode"
