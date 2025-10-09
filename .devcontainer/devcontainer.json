@@ -8,7 +8,8 @@
 			"extensions": [
 				"eamodio.gitlens",
 				"pkief.material-icon-theme",
-				"akamud.vscode-theme-onedark-pro"
+				"akamud.vscode-theme-onedark-pro",
+				"ms-vscode.cpptools-extension-pack"
 			]
 		}
 	},
