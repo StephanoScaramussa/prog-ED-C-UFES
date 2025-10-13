@@ -86,6 +86,5 @@ int main() {
     free(arrayInt);
     end = clock();
     printf("\n\nTempo de execucao: %5.2f seg.\n", ((double)(end - start)) / CLOCKS_PER_SEC);
-
     return 0;
 }
