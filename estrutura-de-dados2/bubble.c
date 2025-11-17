@@ -11,14 +11,17 @@ int* geraVetor(int size){
     return vet;
 }
 
-int* bubbleSort(int* vetor){
+int* bubbleSort(int* vetor, int *comp, int *tr){
     for(int i = N-1; i>=1; i--){
         for(int j = 0; j < i; j++){
             if(vetor[j] > vetor[j+1]){
                 int auxiliar = vetor[j];
                 vetor[j] = vetor[j+1];
                 vetor[j+1] = auxiliar;
+                *tr = *tr + 1;
             }
+            *comp = *comp + 1;
+
         }
     }
     return vetor;
@@ -29,12 +32,15 @@ int main(){
     start = clock();
 
     int *vet = geraVetor(N);
+    unsigned int comp = 0, tr = 0;
 
-    vet = bubbleSort(vet);
+    vet = bubbleSort(vet, &comp, &tr);
 
-    for(int i=0; i<N; i++){
-        printf("%d ", vet[i]);
-    }
+    // for(int i = 0; i<N; i++){
+    //     printf("%d ", vet[i]);
+    // }
+
+    printf("\nComparacoes: %d, Trocas: %d", comp, tr);
 
     free(vet);
     end = clock();
