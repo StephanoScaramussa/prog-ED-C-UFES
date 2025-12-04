@@ -5,8 +5,20 @@ public class Pessoa{
         this.nome = new nome;
         this.idade = new idade;
     }
-    @Override
-    public String toString(){
-        return("Nome: " + this.nome + " Idade: " this.idade);
+    // @Override
+    // public String toString(){
+    //     return("Nome: " + this.nome + " Idade: " this.idade);
+    // }
+
+    // @Override
+    // public int compareTo(Pessoa p){
+
+    // }
+
+    public String getNome(){
+        return nome;
+    }
+    public int getIdade(){
+        return idade;
     }
 }
