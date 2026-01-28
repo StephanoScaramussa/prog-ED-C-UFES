@@ -3,15 +3,6 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"forwardPorts": [8080, 3000],
-	"remoteEnv": {
-		"DISPLAY": "${localEnv:DISPLAY}",
-		"XAUTHORITY": "${localEnv:XAUTHORITY}"
-	},
-	"mounts": [
-		"source=${localEnv:XAUTHORITY},target=/root/.Xauthority,readonly",
-		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
-	],
 	"customizations": {
 		"vscode": {
 			"extensions": [
