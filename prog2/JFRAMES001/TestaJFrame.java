@@ -2,6 +2,7 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.JDialog;
 public class TestaJFrame{
     public static void main(String[] args){
         JFrame quadro = new JFrame("Minha Aplicacao");
